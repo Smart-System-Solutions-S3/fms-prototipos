@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Saiba como utilizar o FMS pode te auxiliar a ganhar mais!</h1>
+    <h3>Com somente algumas informações poderemos calcular quanto você poderia obter de lucro líquido e ROI misturando nossa ferramenta com uma boa campanha de marketing!</h3>
+
+    <p>Primeiramente, quantos metros² tem seu estabelecimento, aproximadamente?</p>
+    <input type="text" id="ipt_metros"> <samp>m²</samp><br>
+    <p>Não sabe a área do seu estabelecimento?</p>
+    <button onclick="mostrarPorte()">Clique aqui</button>
+    <div id="div_msg_porte"></div>
+    <p>O lucro obtido depende muito do quanto você investir em marketing (como trafego pago ou impulsionando posts nas redes sociais).<br>
+        quantas vezes você pretende investir em marketing por mês?</p>
+        <input type="text" id="ipt_marketing">
+
+    <p>Quanto custa seu rodízio?</p>
+    <input type="text" id="ipt_valorRodizio">
+
+    <p>Para finalizar, e ajudar nosso cálculo a ficar o mais próximo possivel da realidade, por favor informe, em média:</p>
+    <samp>Quantas pessoas frequentam o restaurante num dia bom? </samp> <input id="ipt_dia_bom"></input> <br>
+    <samp>Quantas pessoas frequentam o restaurante num dia ruim? </samp> <input type="text" id="ipt_dia_ruim"> <br><br>
+        <p>O pacote FMS inclui uma assinatura de R200,00 mensais que cobrem o custo de suporte e manutenção dos sensores e do sistema.</p>
+    <button onclick="calcular()">Calcule o ROI</button>
+
+    <div id="div_msg"></div>
+</body>
+</html>
+<script>
+    function mostrarPorte(){
+        div_msg_porte.innerHTML = `Você pode usar como base o porte do estabelecimento!
+        <br> Pequeno - até 20 mesas - tamanho considerado: 200m²
+        <br> Médio - entre 20 e 40 mesas - tamanho considerado: 400m²
+        <br> Grande - mais de 40 mesas - tamanho considerado: 600m²`
+    }
+    function calcular(){
+        // Variaveis de informações do restaurante
+        let tamanho = Number(ipt_metros.value)
+        let investimentosMarketing = Number(ipt_marketing.value)
+        let fluxoBom = Number(ipt_dia_bom.value)
+        let fluxoRuim = Number(ipt_dia_ruim.value)
+
+        // Quantos sensores serão instalados (considerando que um sensor de presença captura uma area de 18m²)
+        let sensores = (tamanho/18).toFixed(0)
+
+        // Variaveis monetárias
+        let precoRodizio = Number(ipt_valorRodizio.value)
+        let fluxoIdeal = fluxoBom - fluxoRuim
+        let assinatura = 200
+        let precoInstalacao = sensores*7.5
+        let precoSensores = sensores * 50
+        let precoInvestido = precoInstalacao+precoSensores
+
+        // Proteção contra resultados impossiveis (tamanho negativo ou 0m²)
+        if(tamanho > 0){
+            div_msg.innerHTML = `Gastos com o FMS: <br>
+                                 Taxa de instalação do sistema: R$${(precoInstalacao).toFixed(2)}; <br>
+                                 Sensores: Para cobrir o restaurante todo precisaremos de aproximadamente ${sensores} sensores, que custariam em torno de R$${(precoSensores).toFixed(2)} ao todo; <br>
+                                 Totalizando: R$${(precoInstalacao+precoSensores).toFixed(2)} para a instalação.`
+
+            let faturamentoBrutoIdeal = fluxoIdeal * precoRodizio
+
+            // De acordo com o site ecdfoodservice.com.br o lucro liquido médio de um rodizio de pizza é entre 11% e 13%
+            let lucro = faturamentoBrutoIdeal*0.11
+            let lucroDiario = lucro - (lucro/5)
+
+            //ROI Dia 1 (seguindo o modelo de 4:1)
+            let roiDia = lucro - precoInvestido
+            let roiDiaPorcento = roiDia/100
+            div_msg.innerHTML += `<br>No primeiro dia você poderia ganhar aproximadamente R$${(lucro).toFixed(2)}, equivalente a ${(roiDiaPorcento).toFixed(0)}% a mais do valor investido na instalação; <br>`
+
+            //ROI Mes
+            let lucroMes = lucroDiario * investimentosMarketing
+            let custoMes = assinatura + precoInstalacao
+            let roiMes = ((lucroMes - custoMes)/custoMes)*100
+            let roiMesPorcento = roiMes/100
+
+            div_msg.innerHTML += `Em um mês, você já hipotéticamente ganharia aproximadamente R$${(roiMes).toFixed(2)}, equivalente a ${(roiMesPorcento).toFixed(0)}% do valor gasto com sensores;<br>`
+
+            //ROI Ano
+            let lucroAno = lucroMes*12
+            let custoAno = assinatura*12 + precoInstalacao
+            let roiAno = ((lucroAno-custoAno)/custoAno)*100
+            let roiAnoPorcento = roiAno/100
+
+            div_msg.innerHTML += `E em um ano, você já hipotéticamente ganharia aproximadamente R$${(roiAno).toFixed(2)}, equivalente a ${(roiAnoPorcento).toFixed(0)}% do valor gasto com os sensores.`
+        }else{
+            alert("Tamanho inválido, tente novamente")
+        }
+    }
+</script>
