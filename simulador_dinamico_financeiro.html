@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro - FMS</title>
+</head>
+
+<body>
+    <h1>Simulador Financeiro FMS</h1>
+
+    <p>Saiba como utilizar o FMS pode te auxiliar a ganhar mais!</p>
+    <p>Informando apenas o porte do seu restaurante será feito um cálculo para demonstrar quanto <br> Você pode obter de lucro líquido e ROI sobre a instalação dos sensores utilizando o FMS como uma ferramenta para investir em marketing</p>
+
+    <span>Quantos metros², aspanroximadamente, tem o seu estabelecimento?</span>
+    <input type="number" id="ipt_metros_quadrados">
+    <br>
+    <span>Não sabe a área do seu estabelecimento?</span>
+    <button onclick="area_porte()">Clique aqui</button>
+    <div id="div_mensagem_porte"></div>
+
+    <p>O pacote FMS inclui uma assinatura de R$200,00 mensais que cobrem custos de suporte e manutenção</p>
+
+    <span>O lucro obtido será reflexo da quantidade de vezes que você investir em marketing mensalmente,<br> Informe quantos investimentos mensais em marketing você fará: </span>
+    <input type="number" id="ipt_investimento" placeholder="Investimentos mensais"><br>
+
+    <span>Digite o fluxo de um dia bom</span>
+    <input type="number" id="ipt_fluxo_bom">
+    <br>
+    <span>Digite o fluxo de um dia ruim</span>
+    <input type="number" id="ipt_fluxo_ruim">
+    <br>
+    <span>Informe seu ticket médio do rodizio</span>
+    <input type="number" id="ipt_ticket_medio">
+    <br>
+
+
+    <button onclick="calcular()">Calcule o ROI</button>
+
+    <hr>
+    <div id="div_resposta"></div>
+
+</body>
+
+</html>
+<script>
+    function area_porte() {
+        div_mensagem_porte.innerHTML = `
+        <p>Então informe o porte:</p> 
+        <p>Não sabe o seu porte??
+            <br> Pequeno - 10 a 20 mesas - tamanho considerado: 200 metros quadrados
+            <br> Médio - 20 a 40 mesas - tamanho considerado: 400 metros quadrados
+            <br> Grande - + de 50 mesas - tamanho considerado: 600 metros quadrados
+        </p> 
+        <span>De que porte é seu restaurante? - Pequeno, Médio ou Grande</span> 
+        <input type='text' id='ipt_porte'>
+        <br>`
+    }
+
+
+    function calcular () {
+        let metros_quadrados = Number(ipt_metros_quadrados.value)
+        let quantidade_investimento = Number(ipt_investimento.value)
+
+        let fluxo_bom = Number(ipt_fluxo_bom.value)
+        let fluxo_ruim = Number(ipt_fluxo_ruim.value)
+        let ticket_medio = Number(ipt_ticket_medio.value)
+
+        let assinatura = 200
+        let servico_instalacao = 7.5;
+
+        let dia_ideal = fluxo_bom - fluxo_ruim
+
+        let quantidade_sensores = 0;
+        let valor_total_instalacao = 0;
+
+        if (metros_quadrados) {
+
+            servico_instalacao = servico_instalacao * metros_quadrados
+
+            quantidade_sensores = Number((metros_quadrados / 18).toFixed(0))    
+
+            let valor_sensores = quantidade_sensores * 50
+            valor_total_instalacao = servico_instalacao + valor_sensores
+
+            div_resposta.innerHTML = `
+            Contas: <br> 
+            serviço instalação = ${servico_instalacao} <br>
+            quantidade de sensores = ${quantidade_sensores} <br>
+            valor dos sensores = ${valor_sensores} <br>
+            valor total da instalação = ${valor_total_instalacao} <br>`
+            
+        } else if (ipt_porte.value === "Pequeno"){
+
+            servico_instalacao = servico_instalacao * 200
+
+            quantidade_sensores = Number((200 / 18).toFixed(0))    
+
+            let valor_sensores = quantidade_sensores * 50
+            valor_total_instalacao = servico_instalacao + valor_sensores
+
+            div_resposta.innerHTML = `
+            Contas: <br> 
+            serviço instalação = ${servico_instalacao} <br>
+            quantidade de sensores = ${quantidade_sensores} <br>
+            valor dos sensores = ${valor_sensores} <br>
+            valor total da instalação = ${valor_total_instalacao} <br>`
+
+        } else if (ipt_porte.value === "Médio") {
+
+            servico_instalacao = servico_instalacao * 400
+
+            quantidade_sensores = Number((400 / 18).toFixed(0))    
+
+            let valor_sensores = quantidade_sensores * 50
+            valor_total_instalacao = servico_instalacao + valor_sensores
+
+            div_resposta.innerHTML = `
+            Contas: <br> 
+            serviço instalação = ${servico_instalacao} <br>
+            quantidade de sensores = ${quantidade_sensores} <br>
+            valor dos sensores = ${valor_sensores} <br>
+            valor total da instalação = ${valor_total_instalacao} <br>`
+
+        } else if (ipt_porte.value === "Grande") {
+
+            servico_instalacao = servico_instalacao * 600
+
+            quantidade_sensores = Number((600 / 18).toFixed(0))    
+
+            let valor_sensores = quantidade_sensores * 50
+            valor_total_instalacao = servico_instalacao + valor_sensores
+
+            div_resposta.innerHTML = `
+            Contas: <br> 
+            serviço instalação = ${servico_instalacao} <br>
+            quantidade de sensores = ${quantidade_sensores} <br>
+            valor dos sensores = ${valor_sensores} <br>
+            valor total da instalação = ${valor_total_instalacao} <br>`
+
+        } else {
+
+            alert("Escolhar alguma opção")
+            
+        }
+
+        let faturamento_bruto_ideal = dia_ideal * ticket_medio
+        
+        let lucro = faturamento_bruto_ideal * 0.11
+
+        let valor_investido = lucro / 5
+
+        let lucro_real = lucro - valor_investido
+
+        let lucro_diario = lucro_real
+
+
+        let lucro_mes = lucro_real * quantidade_investimento
+        let roi_mensal = ((lucro_mes - assinatura) / assinatura) * 100 
+
+        let lucro_anual = lucro_mes * 12
+        let custo_anual = (assinatura * 12) + valor_total_instalacao
+        let roi_anual = ((lucro_anual - custo_anual) / custo_anual) * 100 
+
+        div_resposta.innerHTML += `
+        faturamento bruto ideal: dia ideal * ticket médio = ${faturamento_bruto_ideal} <br>
+        lucro: faturamento bruto ideal * 0.11 (valor de lucro médio das pizzarias de rodizio) = ${lucro} <br>
+        valor investido: lucro / 5 (considera um roi de 1:5) ${valor_investido}<br>
+        lucro real: - valor investido ${lucro_real}<br>
+        lucro liquido diário: lucro real - valor total da instalação = ${lucro_diario}<br>
+        lucro no mes: lucro real * quantidade de investimento = ${lucro_mes}<br>
+        roi mensal: ((lucro por mes - assinatura) / assinatura) * 100 = ${roi_mensal}% <br>
+        lucro anual: lucro mes * 12 = ${lucro_anual} <br>
+        custo anual: (assinatura * 12) + valor total instalacao = ${custo_anual}<br>
+        roi anual : ((lucro anual - assinatura) / assinatura) * 100 ${roi_anual}%`
+
+    }
+
+</script>
