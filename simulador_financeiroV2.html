@@ -17,13 +17,19 @@
     <p>Quantos metros², aproximadamente, tem o seu estabelecimento?</p>
     <input type="text" id="ipt_metros_quadrados">
 
-    <p>Não sabe a área? Clique abaixo para informar o porte:</p>
-    <button onclick="exibirInputsPorte()">Informe o Porte</button>
+    <p>Qual o valor de ticket médio do restaurante?</p>
+    <input type="text" id="ipt_ticket_medio">
 
-    <div id="div_calcular_porte"></div>
+    <p>Digite um valor que represente um dia de médio fluxo de clientes no resturante:</p>
+    <input type="text" id="ipt_medio_fluxo">
+  
+    <p>Digite um valor que represente um dia de baxio fluxo de clientes no resturante:</p>
+    <input type="text" id="ipt_baixo_fluxo"><br>
+
     
     <br>
     <button onclick="calcular()">Calcule o ROI</button>
+    <br>
 
     <hr>
     <div id="resposta"></div>
@@ -31,131 +37,71 @@
 </body>
 </html>
 <script>
-    // Função que utiliza innerHTML para criar os campos dinamicamente
-    function exibirInputsPorte() {
-        div_calcular_porte.innerHTML = `
-            <p>Pequeno - 10 a 20 mesas | Médio - 20 a 40 mesas | Grande - + de 50 mesas</p>
-            <span>De que porte é seu restaurante?</span>
-            <input type="text" id="ipt_porte" placeholder="Pequeno, Médio ou Grande"><br>
-        `;
-    }
 
     function calcular() {   
         // ===============================================================
         // 1. CAPTURA DE DADOS
-        // ====================v==========================================
-        let qtdInvest = Number(ipt_invest.value);
-        let tmhEstabelecimento = Number(ipt_metros_quadrados.value);
-        
-        // CAPTURA SEGURA: Só tenta pegar o valor se o input existir na página
-        let porte = "";
-        if (document.getElementById('ipt_porte') != null) {
-            porte = document.getElementById('ipt_porte').value.toLowerCase();
-        }
+        // ===============================================================
+        let qtdInvest = Number(ipt_invest.value)
+        let tmhEstabelecimento = Number(ipt_metros_quadrados.value)
+        let ticketMedio = Number(ipt_ticket_medio.value)
+        let mediaFluxo = Number(ipt_medio_fluxo.value)
+        let baixaFluxo = Number(ipt_baixo_fluxo.value)
 
         // Variáveis de cálculo
-        let mediaFluxo, baixaFluxo, faturamentoBruto, lucroBase, lucroLiquidoDiario, 
-            roiDIARIO, lucroMes, roiMENSAL, lucroAno, roiANUAL;
+        let faturamentoBruto, lucroBase, lucroLiquidoDiario, 
+            roiDIARIO, lucroMes, roiMENSAL, lucroAno, roiANUAL
 
         // ===============================================================
         // 2. LÓGICA POR METRAGEM (Prioridade se tmhEstabelecimento > 0)
         // ===============================================================
         if (tmhEstabelecimento > 0) {
-            let qtdSensores = tmhEstabelecimento / 18;
-            let valorInstalacao = (qtdSensores * 50) + 500;
-            let mensalidade = 0;
+            let qtdSensores = tmhEstabelecimento / 18
+            let valorInstalacao = (qtdSensores * 50) + 500
+            let mensalidade = 0
 
             if (tmhEstabelecimento <= 200) {
-                mensalidade = 300; mediaFluxo = 120; baixaFluxo = 80;
-                faturamentoBruto = (mediaFluxo - baixaFluxo) * 60;
+                mensalidade = 300
             } else if (tmhEstabelecimento <= 400) {
-                mensalidade = 500; mediaFluxo = 450; baixaFluxo = 250;
-                faturamentoBruto = (mediaFluxo - baixaFluxo) * 80;
+                mensalidade = 500
             } else {
-                mensalidade = 800; mediaFluxo = 650; baixaFluxo = 400;
-                faturamentoBruto = (mediaFluxo - baixaFluxo) * 100;
+                mensalidade = 800
             }
 
-            // Cálculos financeiros expandidos
-            lucroBase = faturamentoBruto * 0.11;
-            lucroLiquidoDiario = lucroBase - (lucroBase / 5); 
-            roiDIARIO = ((lucroLiquidoDiario - valorInstalacao) / valorInstalacao) * 100;
+            // Cálculos financeiros
+            faturamentoBruto = (mediaFluxo - baixaFluxo) * ticketMedio
+            lucroBase = faturamentoBruto * 0.11
+            lucroLiquidoDiario = lucroBase - (lucroBase / 5)
+            roiDIARIO = ((lucroLiquidoDiario - valorInstalacao) / valorInstalacao) * 100
 
-            lucroMes = lucroLiquidoDiario * qtdInvest;
-            let custoM = valorInstalacao + mensalidade;
-            roiMENSAL = ((lucroMes - custoM) / custoM) * 100;
+            lucroMes = lucroLiquidoDiario * qtdInvest
+            let custoM = valorInstalacao + mensalidade
+            roiMENSAL = ((lucroMes - custoM) / custoM) * 100
 
-            lucroAno = lucroMes * 12;
-            let custoA = valorInstalacao + (mensalidade * 12);
-            roiANUAL = ((lucroAno - custoA) / custoA) * 100;
-
-            // Variáveis de Estilo (Cor e Negrito)
-            let estiloLDiario = lucroLiquidoDiario >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRDiario = roiDIARIO >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloLMensal = lucroMes >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRMensal = roiMENSAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloLAno = lucroAno >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRAno = roiANUAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-
-            resposta.innerHTML = `Resultado por Metragem:<br>
-                Diário: <span style="${estiloLDiario}">R$ ${lucroLiquidoDiario.toFixed(2)}</span> | ROI: <span style="${estiloRDiario}">${roiDIARIO.toFixed()}%</span><br>
-                Mensal: <span style="${estiloLMensal}">R$ ${lucroMes.toFixed(2)}</span> | ROI: <span style="${estiloRMensal}">${roiMENSAL.toFixed()}%</span><br>
-                Anual: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`;
-
-        } 
-        
-        // ===============================================================
-        // 3. LÓGICA POR PORTE (Executa se metragem for 0 e porte existir)
-        // ===============================================================
-        else if (porte == 'pequeno' || porte == 'médio' || porte == 'medio' || porte == 'grande') {
-            
-            if (porte == 'pequeno') {
-                mediaFluxo = 120; baixaFluxo = 80; faturamentoBruto = (mediaFluxo - baixaFluxo) * 60.00;
-                lucroBase = faturamentoBruto * 0.11;
-                lucroLiquidoDiario = lucroBase - (lucroBase / 5);
-                roiDIARIO = ((lucroLiquidoDiario - 200) / 200) * 100;
-                lucroMes = lucroLiquidoDiario * qtdInvest;
-                roiMENSAL = ((lucroMes - 250) / 250) * 100;
-                lucroAno = lucroMes * 12;
-                roiANUAL = ((lucroAno - 800) / 800) * 100;
-            } 
-            else if (porte == 'médio' || porte == 'medio') {
-                mediaFluxo = 300; baixaFluxo = 200; faturamentoBruto = (mediaFluxo - baixaFluxo) * 65.00;
-                lucroBase = faturamentoBruto * 0.11;
-                lucroLiquidoDiario = lucroBase - (lucroBase / 5);
-                roiDIARIO = ((lucroLiquidoDiario - 300) / 300) * 100;
-                lucroMes = lucroLiquidoDiario * qtdInvest;
-                roiMENSAL = ((lucroMes - 350) / 350) * 100;
-                lucroAno = lucroMes * 12;
-                roiANUAL = ((lucroAno - 950) / 950) * 100;
-            } 
-            else if (porte == 'grande') {
-                mediaFluxo = 650; baixaFluxo = 450; faturamentoBruto = (mediaFluxo - baixaFluxo) * 80.00;
-                lucroBase = faturamentoBruto * 0.11;
-                lucroLiquidoDiario = lucroBase - (lucroBase / 5);
-                roiDIARIO = ((lucroLiquidoDiario - 500) / 500) * 100;
-                lucroMes = lucroLiquidoDiario * qtdInvest;
-                roiMENSAL = ((lucroMes - 550) / 550) * 100;
-                lucroAno = lucroMes * 12;
-                roiANUAL = ((lucroAno - 1150) / 1150) * 100;
-            }
+            lucroAno = lucroMes * 12
+            let custoA = valorInstalacao + (mensalidade * 12)
+            roiANUAL = ((lucroAno - custoA) / custoA) * 100
 
             // Variáveis de Estilo (Cor e Negrito)
-            let estiloLDiario = lucroLiquidoDiario >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRDiario = roiDIARIO >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloLMensal = lucroMes >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRMensal = roiMENSAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloLAno = lucroAno >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
-            let estiloRAno = roiANUAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;';
+            let estiloLDiario = lucroLiquidoDiario >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
+            let estiloRDiario = roiDIARIO >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
+            let estiloLMensal = lucroMes >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
+            let estiloRMensal = roiMENSAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
+            let estiloLAno = lucroAno >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
+            let estiloRAno = roiANUAL >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
 
-            resposta.innerHTML = `Resultado pelo porte <b>${porte.toUpperCase()}</b>:<br>
+            resposta.innerHTML = `
+                Serão necessários ${qtdSensores.toFixed()} sensores para abranger a área de seu restaurante, <br>
+                sendo o orçamento para a instalação do FMS no seu rodízio de R$ ${valorInstalacao.toFixed(2)}.
+                <br><br>
+                Resultado por Metragem:<br>
                 Diário: <span style="${estiloLDiario}">R$ ${lucroLiquidoDiario.toFixed(2)}</span> | ROI: <span style="${estiloRDiario}">${roiDIARIO.toFixed()}%</span><br>
                 Mensal: <span style="${estiloLMensal}">R$ ${lucroMes.toFixed(2)}</span> | ROI: <span style="${estiloRMensal}">${roiMENSAL.toFixed()}%</span><br>
-                Anual: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`;
+                Anual: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`
 
         } 
         else {
-            alert('Informe a metragem ou selecione o porte corretamente!');
+            alert('Informe a metragem ou selecione o porte corretamente!')
         }
     }
 </script>
