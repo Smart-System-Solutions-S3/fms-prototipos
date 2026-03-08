@@ -82,6 +82,8 @@
             let custoA = valorInstalacao + (mensalidade * 12)
             roiANUAL = ((lucroAno - custoA) / custoA) * 100
 
+            let paybackSimples = valorInstalacao / lucroLiquidoDiario
+
             // Variáveis de Estilo (Cor e Negrito)
             let estiloLDiario = lucroLiquidoDiario >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
             let estiloRDiario = roiDIARIO >= 0 ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'
@@ -97,7 +99,9 @@
                 Resultado por Metragem:<br>
                 No primeiro dia: <span style="${estiloLDiario}">R$ ${lucroLiquidoDiario.toFixed(2)}</span> | ROI: <span style="${estiloRDiario}">${roiDIARIO.toFixed()}%</span><br>
                 No primeiro mês: <span style="${estiloLMensal}">R$ ${lucroMes.toFixed(2)}</span> | ROI: <span style="${estiloRMensal}">${roiMENSAL.toFixed()}%</span><br>
-                No primeiro ano: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`
+                No primeiro ano: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>
+                <br><br>
+                Você recuperá o investimento no sistema em ${paybackSimples.toFixed()} dias (payback simples). lucro diario ${lucroLiquidoDiario}`
 
         } 
         else {
