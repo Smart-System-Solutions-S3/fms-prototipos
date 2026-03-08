@@ -23,7 +23,7 @@
     <p>Digite um valor que represente um dia de médio fluxo de clientes no resturante:</p>
     <input type="text" id="ipt_medio_fluxo">
   
-    <p>Digite um valor que represente um dia de baxio fluxo de clientes no resturante:</p>
+    <p>Digite um valor que represente um dia de baixo fluxo de clientes no resturante:</p>
     <input type="text" id="ipt_baixo_fluxo"><br>
 
     
@@ -42,14 +42,14 @@
         // ===============================================================
         // 1. CAPTURA DE DADOS
         // ===============================================================
-        let qtdInvest = Number(ipt_invest.value)
-        let tmhEstabelecimento = Number(ipt_metros_quadrados.value)
-        let ticketMedio = Number(ipt_ticket_medio.value)
-        let mediaFluxo = Number(ipt_medio_fluxo.value)
-        let baixaFluxo = Number(ipt_baixo_fluxo.value)
+        let qtdInvest = Number(ipt_invest.value) // Quantidade de vezes que o usuário investe em marketing
+        let tmhEstabelecimento = Number(ipt_metros_quadrados.value) // Tamanho em m² do restaurante
+        let ticketMedio = Number(ipt_ticket_medio.value) // Valor médio gasto por cliente no restaurante
+        let mediaFluxo = Number(ipt_medio_fluxo.value) // Média de fluxo de clientes no restaurante informados pelo usuário 
+        let baixaFluxo = Number(ipt_baixo_fluxo.value) // número abaixo do esperado de fluxo no restaurante (informado pelo usuário)
 
         // Variáveis de cálculo
-        let faturamentoBruto, lucroBase, lucroLiquidoDiario, 
+        let faturamentoBruto, lucroBase, lucroLiquidoDiario,
             roiDIARIO, lucroMes, roiMENSAL, lucroAno, roiANUAL
 
         // ===============================================================
@@ -92,12 +92,12 @@
 
             resposta.innerHTML = `
                 Serão necessários ${qtdSensores.toFixed()} sensores para abranger a área de seu restaurante, <br>
-                sendo o orçamento para a instalação do FMS no seu rodízio de R$ ${valorInstalacao.toFixed(2)}.
+                o orçamento para a instalação do FMS no seu rodízio é de R$ ${valorInstalacao.toFixed(2)}.
                 <br><br>
                 Resultado por Metragem:<br>
-                Diário: <span style="${estiloLDiario}">R$ ${lucroLiquidoDiario.toFixed(2)}</span> | ROI: <span style="${estiloRDiario}">${roiDIARIO.toFixed()}%</span><br>
-                Mensal: <span style="${estiloLMensal}">R$ ${lucroMes.toFixed(2)}</span> | ROI: <span style="${estiloRMensal}">${roiMENSAL.toFixed()}%</span><br>
-                Anual: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`
+                No primeiro dia: <span style="${estiloLDiario}">R$ ${lucroLiquidoDiario.toFixed(2)}</span> | ROI: <span style="${estiloRDiario}">${roiDIARIO.toFixed()}%</span><br>
+                No primeiro mês: <span style="${estiloLMensal}">R$ ${lucroMes.toFixed(2)}</span> | ROI: <span style="${estiloRMensal}">${roiMENSAL.toFixed()}%</span><br>
+                No primeiro ano: <span style="${estiloLAno}">R$ ${lucroAno.toFixed(2)}</span> | ROI: <span style="${estiloRAno}">${roiANUAL.toFixed()}%</span>`
 
         } 
         else {
