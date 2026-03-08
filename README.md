@@ -53,7 +53,7 @@ Telas do protótipo de alta fidelidade desenvolvido no Figma, cobrindo os princi
 ```
 [ screenshot — dashboard principal com gráficos de fluxo ]
 ```
-![Dashboard Principal](docs/screenshots/figma-dashboard.png)
+<img src="https://res.cloudinary.com/dleo9ipkq/image/upload/v1772934547/imagem_2026-03-07_224906487_pzvfyk.png">
 
 ---
 
@@ -62,20 +62,11 @@ Telas do protótipo de alta fidelidade desenvolvido no Figma, cobrindo os princi
 ```
 [ screenshot — mapa de calor dos setores do restaurante ]
 ```
-![Mapa de Calor](docs/screenshots/figma-heatmap.png)
+<img src="https://res.cloudinary.com/dleo9ipkq/image/upload/v1772934509/imagem_2026-03-07_224826821_tsfkpt.png">
 
 ---
 
-#### Tela de Alertas
-<!-- Substitua pelo caminho da imagem: docs/screenshots/figma-alertas.png -->
-```
-[ screenshot — painel de alertas de movimentação ]
-```
-![Alertas](docs/screenshots/figma-alertas.png)
-
----
-
-> 🔗 **Link do Figma:** [Adicione aqui o link de visualização do projeto no Figma](https://figma.com)
+> 🔗 **Link do Figma:** [Adicione aqui o link de visualização do projeto no Figma]([https://figma.com](https://www.figma.com/design/jxaWMOanGK5fFvvsl7xF7s/prototipo-fms?node-id=47-2&t=TMeGOD7c4vMr4bfh-1))
 
 ---
 
@@ -88,25 +79,16 @@ Capturas de tela do simulador financeiro em funcionamento, mostrando o formulár
 ```
 [ screenshot — formulário com campos preenchidos ]
 ```
-![Formulário da Calculadora](docs/screenshots/calc-formulario.png)
+<img src="https://res.cloudinary.com/dleo9ipkq/image/upload/v1772935581/imagem_2026-03-07_230619659_vreabi.png">
 
 ---
 
-#### Resultado do Cálculo — ROI Positivo
+#### Resultado do Cálculo — ROI
 <!-- Substitua pelo caminho da imagem: docs/screenshots/calc-resultado-positivo.png -->
 ```
 [ screenshot — resultado com ROI positivo (valores em verde) ]
 ```
-![Resultado ROI Positivo](docs/screenshots/calc-resultado-positivo.png)
-
----
-
-#### Resultado do Cálculo — ROI Negativo
-<!-- Substitua pelo caminho da imagem: docs/screenshots/calc-resultado-negativo.png -->
-```
-[ screenshot — resultado com ROI negativo no primeiro dia (valores em vermelho) ]
-```
-![Resultado ROI Negativo](docs/screenshots/calc-resultado-negativo.png)
+<img src="https://res.cloudinary.com/dleo9ipkq/image/upload/v1772935565/imagem_2026-03-07_230603552_qefini.png">
 
 ---
 
