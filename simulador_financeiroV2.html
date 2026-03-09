@@ -58,15 +58,7 @@
         if (tmhEstabelecimento > 0) {
             let qtdSensores = tmhEstabelecimento / 18
             let valorInstalacao = (qtdSensores * 50) + 500
-            let mensalidade = 0
-
-            if (tmhEstabelecimento <= 200) {
-                mensalidade = 300
-            } else if (tmhEstabelecimento <= 400) {
-                mensalidade = 500
-            } else {
-                mensalidade = 800
-            }
+            let mensalidade = 50
 
             // Cálculos financeiros
             faturamentoBruto = (mediaFluxo - baixaFluxo) * ticketMedio
