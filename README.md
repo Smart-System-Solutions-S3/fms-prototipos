@@ -244,7 +244,7 @@ O sistema emite 3 níveis de alerta baseados nos dados dos sensores:
 3. Clique em **"Calcule o ROI"**.
 4. O resultado exibirá o lucro estimado e o ROI para o primeiro dia, mês e ano de uso do FMS.
 
-> ⚠️ **Atenção:** O campo de metragem é obrigatório. Caso não seja preenchido, o sistema exibirá um alerta solicitando a informação.
+> ⚠️ **Atenção:** O campo de metragem é obrigatório. Caso não seja preenchido, o sistema exibirá um alerta solicitando a inserção da informação.
 
 ### Banco de Dados
 
