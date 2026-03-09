@@ -266,14 +266,8 @@ FLOW_MANAGEMENT_SYSTEM/
 ├── README.md                          # Esta documentação
 │
 ├── docs/
-│   └── screenshots/                   # Capturas de tela dos protótipos
-│       ├── figma-login.png            # Tela de login (Figma)
-│       ├── figma-dashboard.png        # Dashboard principal (Figma)
-│       ├── figma-heatmap.png          # Mapa de calor (Figma)
-│       ├── figma-alertas.png          # Painel de alertas (Figma)
-│       ├── calc-formulario.png        # Calculadora — formulário
-│       ├── calc-resultado-positivo.png# Calculadora — ROI positivo
-│       └── calc-resultado-negativo.png# Calculadora — ROI negativo
+│   └── prototipo/                   # Capturas de tela dos protótipos
+│       ├── prototipo_fms.pdf
 │
 ├── simulador_financeiroV2.html        # Protótipo: Simulador de ROI
 │
